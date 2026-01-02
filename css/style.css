@@ -335,9 +335,8 @@ h6 {
     flex-direction: column;
     justify-content: flex-start;
     padding: var(--space-2xl);
-    background: rgba(10, 10, 10, 0.98);
-    backdrop-filter: blur(var(--blur-xl));
-    -webkit-backdrop-filter: blur(var(--blur-xl));
+    background: #0a0a0a;
+    z-index: 999;
     transform: translateX(100%);
     transition: transform var(--transition-base);
   }
