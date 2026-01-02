@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Vielen Dank! - MAPMusic</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="thankyou-container">
+        <div class="thankyou-icon">✓</div>
+
+        <h1 class="thankyou-title">Vielen Dank!</h1>
+
+        <p class="thankyou-text">
+            Ihre Nachricht wurde erfolgreich gesendet. Ich werde mich so schnell wie möglich bei Ihnen melden.
+        </p>
+
+        <div class="thankyou-privacy">
+            <strong>Hinweis zur Datenverarbeitung:</strong><br>
+            Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.
+        </div>
+
+        <p class="redirect-notice">
+            Automatische Weiterleitung in <span id="countdown">5</span> Sekunden...
+        </p>
+
+        <a href="index.html" class="btn btn-secondary" style="margin-top: var(--space-md);">
+            Zurück zur Startseite
+        </a>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize redirect countdown
+        initRedirect(5);
+    </script>
+</body>
+
+</html>
