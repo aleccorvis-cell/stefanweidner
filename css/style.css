@@ -3,6 +3,46 @@
  * 2026 Modern CSS with Container Queries, :has(), and Scroll-driven animations
  */
 
+/* ========== Local Font Faces (DSGVO-konform) ========== */
+
+/* Inter - Sans-Serif */
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Regular.woff2') format('woff2'),
+    url('../assets/fonts/Inter-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Bold.woff2') format('woff2'),
+    url('../assets/fonts/Inter-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Playfair Display - Serif/Display */
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../assets/fonts/PlayfairDisplay-Regular.woff2') format('woff2'),
+    url('../assets/fonts/PlayfairDisplay-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../assets/fonts/PlayfairDisplay-Bold.woff2') format('woff2'),
+    url('../assets/fonts/PlayfairDisplay-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ========== CSS Custom Properties ========== */
 :root {
   /* Colors - Dark Elegant Theme */
