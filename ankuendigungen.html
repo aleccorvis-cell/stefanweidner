@@ -13,16 +13,17 @@
             } catch (e) { }
         })();
     </script>
-    <meta name="description" content="Impressum - Written in Sound Stefan Weidner. Angaben gemäß § 5 DDG.">
-    <meta name="robots" content="noindex, follow">
+    <meta name="description" content="Aktuelle Ankündigungen von Written in Sound - Stefan Weidner.">
 
-    <title>Impressum | Written in Sound - Stefan Weidner</title>
+    <meta property="og:title" content="Ankündigungen - Written in Sound">
+    <meta property="og:description" content="Aktuelle Ankündigungen von Stefan Weidner.">
+
+    <title>Ankündigungen - Written in Sound | Stefan Weidner</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <link rel="apple-touch-icon" href="assets/images/favicon.png">
 
-    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -69,55 +70,26 @@
                 <li><a href="leistungen.html" class="nav-link">Leistungen</a></li>
                 <li><a href="referenzen.html" class="nav-link">Referenzen</a></li>
                 <li><a href="media.html" class="nav-link">Media</a></li>
-                <li><a href="ankuendigungen.html" class="nav-link">Ankündigungen</a></li>
+                <li><a href="ankuendigungen.html" class="nav-link active">Ankündigungen</a></li>
                 <li><a href="index.html#kontakt" class="nav-link">Kontakt</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
+        <!-- Page Header -->
         <header class="page-header">
             <div class="container">
-                <h1 class="section-title">Impressum</h1>
+                <span class="section-label">Schwarzes Brett</span>
+                <h1>Ankündigungen</h1>
+                <p>Aktuelles von Written in Sound.</p>
             </div>
         </header>
 
         <section class="section">
             <div class="container">
-                <div class="legal-content">
-                    <h2>Angaben gemäß § 5 DDG</h2>
-                    <p>
-                        <strong>Stefan Weidner</strong><br>
-                        Written in Sound, Bruckstr. 24, 73066 Uhingen
-                    </p>
-
-                    <h3>Kontakt</h3>
-                    <p>
-                        Telefon: 0174 7089514<br>
-                        E-Mail: <a href="mailto:mannampiano@gmail.com">mannampiano@gmail.com</a>
-                    </p>
-
-                    <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
-                    <p>
-                        Stefan Weidner, Bruckstr. 24, 73066 Uhingen
-                    </p>
-
-                    <h2>Verbraucherstreitbeilegung</h2>
-                    <p>
-                        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
-                        Verbraucherschlichtungsstelle teilzunehmen (gemäß § 36 VSBG).
-                    </p>
-
-                    <h2>Haftung für Inhalte & Urheberrecht</h2>
-                    <p>
-                        Als Diensteanbieter sind wir gemäß § 7 DDG für eigene Inhalte verantwortlich.
-                        Die Inhalte dieser Seite unterliegen dem deutschen Urheberrecht.
-                    </p>
-
-                    <hr style="margin: var(--space-2xl) 0; border: none; border-top: 1px solid var(--glass-border);">
-                    <p style="font-size: var(--text-sm); color: var(--color-text-muted);">
-                        Stand: Oktober 2026
-                    </p>
+                <div id="announcementsList" class="announcements-list">
+                    <div class="announcements-loading">Lädt...</div>
                 </div>
             </div>
         </section>
@@ -166,6 +138,7 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/announcements.js"></script>
 </body>
 
 </html>

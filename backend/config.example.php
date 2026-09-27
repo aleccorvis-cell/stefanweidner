@@ -20,14 +20,11 @@ return [
     // Nur fuer lokale Entwicklung relevant
     'db_sqlite_path' => __DIR__ . '/dev.sqlite',
 
-    'smtp' => [
-        'host' => '',
-        'port' => 587,
-        'user' => '',
-        'password' => '',
-        'from_email' => '',
-        'from_name' => 'Written in Sound',
-    ],
+    // Fuer Einladungs-/Passwort-Reset-Mails an Admins (siehe backend/lib/mailer.php).
+    // API-Key unter https://resend.com/api-keys erzeugen. Ohne eigene verifizierte
+    // Domain funktioniert der Test-Absender "onboarding@resend.dev" sofort.
+    'resend_api_key' => '',
+    'resend_from' => 'Written in Sound <onboarding@resend.dev>',
 
     // Zufaellige, lange Zeichenkette fuer Session-/CSRF-Sicherheit (z.B. via bin2hex(random_bytes(32)))
     'app_secret' => 'CHANGE-ME',

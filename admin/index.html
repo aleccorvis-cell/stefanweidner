@@ -32,7 +32,10 @@
                 <input class="form-input" type="password" id="loginPassword" required autocomplete="current-password">
             </div>
             <p id="loginError" class="form-error" style="display:none;"></p>
+            <p id="loginSuccess" class="form-error" style="display:none; color:#4ade80;"></p>
             <button type="submit" class="btn btn-primary" style="width:100%;">Anmelden</button>
+            <button type="button" id="forgotPasswordBtn" class="btn btn-secondary admin-btn-sm"
+                style="width:100%;">Passwort vergessen?</button>
         </form>
     </div>
 
@@ -58,6 +61,11 @@
             <nav class="admin-col admin-col-pages" aria-label="Seiten">
                 <h2 class="admin-col-title">Seiten</h2>
                 <ul id="pageTree" class="page-tree"></ul>
+
+                <h2 class="admin-col-title" id="teamNavTitle" style="margin-top: var(--space-xl);" hidden>Verwaltung</h2>
+                <ul class="page-tree" id="ownerNavList" hidden>
+                    <li><button type="button" class="page-tree-item" id="teamNavBtn">Team</button></li>
+                </ul>
             </nav>
 
             <!-- Mitte: Live-Vorschau -->

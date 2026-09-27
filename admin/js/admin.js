@@ -84,8 +84,22 @@ async function showApp() {
   document.getElementById('adminApp').hidden = false;
   document.getElementById('currentUserLabel').textContent =
     `${state.user.email} (${state.user.role})`;
+
+  if (state.user.role === 'owner') {
+    document.getElementById('teamNavTitle').hidden = false;
+    document.getElementById('ownerNavList').hidden = false;
+  }
+
   await loadPages();
 }
+
+document.getElementById('teamNavBtn').addEventListener('click', () => {
+  state.currentPage = null;
+  renderPageTree();
+  document.getElementById('teamNavBtn').classList.add('active');
+  document.querySelector('.add-block-row').hidden = true;
+  loadTeamAdmin();
+});
 
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -103,6 +117,24 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     errorEl.textContent = err.message;
     errorEl.style.display = 'block';
   }
+});
+
+document.getElementById('forgotPasswordBtn').addEventListener('click', async () => {
+  const email = document.getElementById('loginEmail').value.trim();
+  const errorEl = document.getElementById('loginError');
+  const successEl = document.getElementById('loginSuccess');
+  errorEl.style.display = 'none';
+  successEl.style.display = 'none';
+
+  if (!email) {
+    errorEl.textContent = 'Bitte zuerst E-Mail-Adresse oben eintragen.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  const data = await api('auth/forgot-password.php', { method: 'POST', body: { email } });
+  successEl.textContent = data.message;
+  successEl.style.display = 'block';
 });
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
@@ -150,6 +182,17 @@ function renderPageTree() {
 async function selectPage(page) {
   state.currentPage = page;
   renderPageTree();
+  document.getElementById('teamNavBtn')?.classList.remove('active');
+
+  const addBlockRow = document.querySelector('.add-block-row');
+
+  if (page.slug === 'ankuendigungen') {
+    addBlockRow.hidden = true;
+    await loadAnnouncementsAdmin();
+    return;
+  }
+
+  addBlockRow.hidden = false;
   const data = await api(`blocks.php?page=${encodeURIComponent(page.slug)}`);
   state.blocks = data.blocks;
   renderBlockList();
@@ -648,6 +691,426 @@ document.getElementById('addBlockBtn').addEventListener('click', async () => {
   renderBlockList();
   renderPreview();
 });
+
+// ========== Ankündigungen ("Schwarzes Brett") ==========
+
+state.announcements = [];
+state.showArchived = false;
+
+async function loadAnnouncementsAdmin() {
+  const data = await api(state.showArchived ? 'announcements.php?archived=1' : 'announcements.php?all=1');
+  state.announcements = data.announcements;
+  renderAnnouncementsAdmin();
+  renderAnnouncementsPreview();
+}
+
+function renderAnnouncementsAdmin() {
+  const list = document.getElementById('blockList');
+  list.innerHTML = '';
+
+  const toolbar = document.createElement('div');
+  toolbar.style.cssText = 'display:flex; gap:8px; margin-bottom:12px;';
+
+  const toggleBtn = document.createElement('button');
+  toggleBtn.className = 'btn btn-secondary admin-btn-sm';
+  toggleBtn.textContent = state.showArchived ? '← Zurück zu aktiven' : 'Archiv anzeigen';
+  toggleBtn.addEventListener('click', async () => {
+    state.showArchived = !state.showArchived;
+    await loadAnnouncementsAdmin();
+  });
+  toolbar.appendChild(toggleBtn);
+
+  if (!state.showArchived) {
+    const addBtn = document.createElement('button');
+    addBtn.className = 'btn btn-primary admin-btn-sm';
+    addBtn.textContent = '+ Neue Ankündigung';
+    addBtn.addEventListener('click', async () => {
+      if (state.announcements.length >= 20) {
+        alert('Maximal 20 Ankündigungen gleichzeitig erlaubt. Bitte erst welche archivieren.');
+        return;
+      }
+      const data = await api('announcements.php', { method: 'POST', body: { title: 'Neue Ankündigung' } });
+      await loadAnnouncementsAdmin();
+    });
+    toolbar.appendChild(addBtn);
+  }
+
+  list.appendChild(toolbar);
+
+  if (state.announcements.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'upload-status';
+    empty.textContent = state.showArchived ? 'Archiv ist leer.' : 'Noch keine Ankündigungen.';
+    list.appendChild(empty);
+    return;
+  }
+
+  state.announcements.forEach((item) => {
+    list.appendChild(state.showArchived ? buildArchivedCard(item) : buildAnnouncementCard(item));
+  });
+}
+
+function buildArchivedCard(item) {
+  const card = document.createElement('div');
+  card.className = 'block-card';
+  card.innerHTML = `
+    <div class="block-card-header">
+      <span class="block-card-type">${escapeHtml(item.title || '(ohne Titel)')}</span>
+    </div>
+  `;
+  const restoreBtn = document.createElement('button');
+  restoreBtn.className = 'btn btn-secondary admin-btn-sm';
+  restoreBtn.textContent = 'Wiederherstellen';
+  restoreBtn.addEventListener('click', async () => {
+    await api(`announcements.php?id=${item.id}&restore=1`, { method: 'PUT' });
+    await loadAnnouncementsAdmin();
+  });
+  card.appendChild(restoreBtn);
+  return card;
+}
+
+function buildAnnouncementCard(item) {
+  const card = document.createElement('div');
+  card.className = 'block-card';
+  card.draggable = true;
+  card.dataset.announcementId = item.id;
+
+  const header = document.createElement('div');
+  header.className = 'block-card-header';
+
+  const activeLabel = document.createElement('label');
+  activeLabel.style.cssText = 'display:flex; align-items:center; gap:6px; font-size:var(--text-xs); cursor:pointer;';
+  const activeCheckbox = document.createElement('input');
+  activeCheckbox.type = 'checkbox';
+  activeCheckbox.checked = item.is_active;
+  activeLabel.append(activeCheckbox, document.createTextNode('Aktiv'));
+
+  const actions = document.createElement('span');
+  actions.className = 'block-card-actions';
+
+  const archiveBtn = document.createElement('button');
+  archiveBtn.className = 'icon-btn';
+  archiveBtn.title = 'Archivieren';
+  archiveBtn.textContent = '📦';
+  archiveBtn.addEventListener('click', async () => {
+    await api(`announcements.php?id=${item.id}`, { method: 'PUT', body: { is_archived: true } });
+    await loadAnnouncementsAdmin();
+  });
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.className = 'icon-btn';
+  deleteBtn.title = 'Endgültig löschen';
+  deleteBtn.textContent = '🗑';
+  deleteBtn.addEventListener('click', async () => {
+    if (!confirm('Diese Ankündigung wirklich endgültig löschen?')) return;
+    await api(`announcements.php?id=${item.id}`, { method: 'DELETE' });
+    await loadAnnouncementsAdmin();
+  });
+
+  actions.append(archiveBtn, deleteBtn);
+  header.append(activeLabel, actions);
+  card.appendChild(header);
+
+  const titleInput = document.createElement('input');
+  titleInput.className = 'form-input';
+  titleInput.placeholder = 'Titel';
+  titleInput.value = item.title || '';
+
+  const bodyTextarea = document.createElement('textarea');
+  bodyTextarea.className = 'form-textarea';
+  bodyTextarea.placeholder = 'Text';
+  bodyTextarea.value = item.body || '';
+  bodyTextarea.rows = 3;
+
+  const mediaTypeSelect = document.createElement('select');
+  mediaTypeSelect.className = 'form-select';
+  [['none', 'Kein Medium'], ['image', 'Bild'], ['video', 'Video (externer Link)']].forEach(([val, label]) => {
+    const opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = label;
+    if ((item.media_type || 'none') === val) opt.selected = true;
+    mediaTypeSelect.appendChild(opt);
+  });
+
+  const mediaUrlInput = document.createElement('input');
+  mediaUrlInput.className = 'form-input';
+  mediaUrlInput.placeholder = 'Video-URL (z.B. YouTube-Embed-Link)';
+  mediaUrlInput.value = item.media_type === 'video' ? (item.media_url || '') : '';
+  mediaUrlInput.style.display = item.media_type === 'video' ? 'block' : 'none';
+
+  const imageUpload = document.createElement('input');
+  imageUpload.type = 'file';
+  imageUpload.accept = 'image/jpeg,image/png,image/webp,image/gif';
+  imageUpload.className = 'form-input';
+  imageUpload.style.display = item.media_type === 'image' ? 'block' : 'none';
+
+  let currentMediaUrl = item.media_type === 'image' ? (item.media_url || '') : '';
+
+  const imagePreview = document.createElement('img');
+  imagePreview.className = 'block-image-preview';
+  imagePreview.style.display = currentMediaUrl ? 'block' : 'none';
+  if (currentMediaUrl) imagePreview.src = currentMediaUrl;
+
+  mediaTypeSelect.addEventListener('change', () => {
+    mediaUrlInput.style.display = mediaTypeSelect.value === 'video' ? 'block' : 'none';
+    imageUpload.style.display = mediaTypeSelect.value === 'image' ? 'block' : 'none';
+    imagePreview.style.display = mediaTypeSelect.value === 'image' && currentMediaUrl ? 'block' : 'none';
+  });
+
+  imageUpload.addEventListener('change', async () => {
+    const file = imageUpload.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      const data = await api('upload.php', { method: 'POST', body: formData, isForm: true });
+      currentMediaUrl = data.url;
+      imagePreview.src = data.url;
+      imagePreview.style.display = 'block';
+    } catch (err) {
+      alert('Upload fehlgeschlagen: ' + err.message);
+    }
+  });
+
+  const dateRow = document.createElement('div');
+  dateRow.style.cssText = 'display:flex; gap:8px;';
+
+  const startInput = document.createElement('input');
+  startInput.type = 'datetime-local';
+  startInput.className = 'form-input';
+  startInput.value = toDatetimeLocal(item.start_at);
+  startInput.title = 'Start (leer = sofort)';
+
+  const endInput = document.createElement('input');
+  endInput.type = 'datetime-local';
+  endInput.className = 'form-input';
+  endInput.value = toDatetimeLocal(item.end_at);
+  endInput.title = 'Ende (leer = unbegrenzt)';
+
+  dateRow.append(startInput, endInput);
+
+  const saveBtn = document.createElement('button');
+  saveBtn.className = 'btn btn-primary admin-btn-sm block-save-btn';
+  saveBtn.textContent = 'Speichern';
+  saveBtn.addEventListener('click', async () => {
+    saveBtn.textContent = 'Speichere...';
+    try {
+      await api(`announcements.php?id=${item.id}`, {
+        method: 'PUT',
+        body: {
+          title: titleInput.value,
+          body: bodyTextarea.value,
+          media_type: mediaTypeSelect.value,
+          media_url: mediaTypeSelect.value === 'video' ? mediaUrlInput.value : (mediaTypeSelect.value === 'image' ? currentMediaUrl : ''),
+          is_active: activeCheckbox.checked,
+          start_at: fromDatetimeLocal(startInput.value),
+          end_at: fromDatetimeLocal(endInput.value),
+        },
+      });
+      Object.assign(item, {
+        title: titleInput.value,
+        body: bodyTextarea.value,
+        media_type: mediaTypeSelect.value,
+        media_url: mediaTypeSelect.value === 'video' ? mediaUrlInput.value : currentMediaUrl,
+        is_active: activeCheckbox.checked,
+        start_at: fromDatetimeLocal(startInput.value),
+        end_at: fromDatetimeLocal(endInput.value),
+      });
+      renderAnnouncementsPreview();
+      saveBtn.textContent = 'Gespeichert ✓';
+      setTimeout(() => { saveBtn.textContent = 'Speichern'; }, 1500);
+    } catch (err) {
+      alert('Fehler: ' + err.message);
+      saveBtn.textContent = 'Speichern';
+    }
+  });
+
+  card.append(titleInput, bodyTextarea, mediaTypeSelect, mediaUrlInput, imageUpload, imagePreview, dateRow, saveBtn);
+
+  card.addEventListener('dragstart', () => card.classList.add('dragging'));
+  card.addEventListener('dragend', async () => {
+    card.classList.remove('dragging');
+    const ids = [...document.querySelectorAll('#blockList .block-card[data-announcement-id]')]
+      .map((c) => Number(c.dataset.announcementId));
+    state.announcements.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+    renderAnnouncementsPreview();
+    await api('announcements.php?reorder=1', { method: 'PUT', body: { order: ids } });
+  });
+
+  return card;
+}
+
+function toDatetimeLocal(sqlDatetime) {
+  if (!sqlDatetime) return '';
+  return sqlDatetime.replace(' ', 'T').slice(0, 16);
+}
+
+function fromDatetimeLocal(value) {
+  if (!value) return null;
+  return value.replace('T', ' ') + ':00';
+}
+
+function isAnnouncementCurrentlyActive(item) {
+  if (!item.is_active) return false;
+  const now = new Date();
+  if (item.start_at && new Date(item.start_at) > now) return false;
+  if (item.end_at && new Date(item.end_at) < now) return false;
+  return true;
+}
+
+function renderAnnouncementsPreview() {
+  const el = document.getElementById('previewContent');
+  const activeItems = state.announcements.filter(isAnnouncementCurrentlyActive);
+
+  if (activeItems.length === 0) {
+    el.innerHTML = '<div class="announcements-empty"><h2>Coming Soon</h2><p>Hier erscheinen in Kürze aktuelle Ankündigungen.</p></div>';
+    return;
+  }
+
+  el.innerHTML = activeItems.map((item) => `
+    <article class="glass-card announcement-card">
+      ${item.media_type === 'image' && item.media_url ? `<img class="announcement-media" src="${escapeAttr(item.media_url)}" alt="">` : ''}
+      <div class="announcement-card-body">
+        ${item.title ? `<h2 class="announcement-title">${escapeHtml(item.title)}</h2>` : ''}
+        ${item.body ? `<p class="announcement-text">${escapeHtml(item.body)}</p>` : ''}
+      </div>
+    </article>
+  `).join('');
+}
+
+// ========== Team-Verwaltung (nur Owner) ==========
+
+const ROLE_LABELS = { owner: 'Owner', editor: 'Editor', viewer: 'Beobachter' };
+
+async function loadTeamAdmin() {
+  document.getElementById('previewContent').innerHTML = `
+    <div class="preview-empty">
+      <p>Team-Verwaltung – Zugänge anlegen, Rollen vergeben, Passwörter zurücksetzen.</p>
+      <p style="margin-top:8px;">Nur für dich als Owner sichtbar.</p>
+    </div>
+  `;
+
+  const data = await api('users.php');
+  renderTeamList(data.users);
+}
+
+function renderTeamList(users) {
+  const list = document.getElementById('blockList');
+  list.innerHTML = '';
+
+  const addSection = document.createElement('div');
+  addSection.className = 'block-card';
+  addSection.innerHTML = '<div class="block-card-header"><span class="block-card-type">Neuen Zugang einladen</span></div>';
+
+  const emailInput = document.createElement('input');
+  emailInput.className = 'form-input';
+  emailInput.type = 'email';
+  emailInput.placeholder = 'E-Mail-Adresse';
+
+  const roleSelect = document.createElement('select');
+  roleSelect.className = 'form-select';
+  [['editor', 'Editor (z.B. Stefan)'], ['viewer', 'Beobachter (nur lesen)'], ['owner', 'Owner (voller Zugriff)']]
+    .forEach(([val, label]) => {
+      const opt = document.createElement('option');
+      opt.value = val;
+      opt.textContent = label;
+      roleSelect.appendChild(opt);
+    });
+
+  const inviteBtn = document.createElement('button');
+  inviteBtn.className = 'btn btn-primary admin-btn-sm block-save-btn';
+  inviteBtn.textContent = 'Einladen';
+
+  const resultBox = document.createElement('p');
+  resultBox.className = 'upload-status';
+
+  inviteBtn.addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    if (!email) { emailInput.focus(); return; }
+
+    inviteBtn.textContent = 'Sende Einladung...';
+    try {
+      const data = await api('users.php', { method: 'POST', body: { email, role: roleSelect.value } });
+      resultBox.innerHTML = data.mail_sent
+        ? `✓ Einladung per E-Mail an ${escapeHtml(email)} gesendet.`
+        : `⚠ E-Mail konnte nicht versendet werden (Resend evtl. noch nicht konfiguriert). Link manuell teilen:<br><code style="word-break:break-all;">${escapeHtml(data.invite_link)}</code>`;
+      emailInput.value = '';
+      // Nur die Karten-Liste neu laden, nicht das ganze Panel - sonst wuerde die
+      // obige Erfolgsmeldung/der Link sofort wieder verschwinden.
+      const fresh = await api('users.php');
+      state.teamCardsContainer.innerHTML = '';
+      fresh.users.forEach((u) => state.teamCardsContainer.appendChild(buildUserCard(u)));
+    } catch (err) {
+      resultBox.textContent = 'Fehler: ' + err.message;
+    } finally {
+      inviteBtn.textContent = 'Einladen';
+    }
+  });
+
+  addSection.append(emailInput, roleSelect, inviteBtn, resultBox);
+  list.appendChild(addSection);
+
+  const cardsContainer = document.createElement('div');
+  users.forEach((u) => cardsContainer.appendChild(buildUserCard(u)));
+  list.appendChild(cardsContainer);
+  state.teamCardsContainer = cardsContainer;
+}
+
+function buildUserCard(u) {
+  const card = document.createElement('div');
+  card.className = 'block-card';
+
+  const statusLabel = u.status === 'active' ? 'Aktiv' : u.status === 'pending' ? 'Einladung offen' : 'Deaktiviert';
+
+  const header = document.createElement('div');
+  header.className = 'block-card-header';
+  header.innerHTML = `
+    <span class="block-card-type">${escapeHtml(u.email)}</span>
+    <span class="block-card-type">${ROLE_LABELS[u.role] || u.role} · ${statusLabel}</span>
+  `;
+  card.appendChild(header);
+
+  const resultBox = document.createElement('p');
+  resultBox.className = 'upload-status';
+
+  const actionsRow = document.createElement('div');
+  actionsRow.style.cssText = 'display:flex; gap:8px; margin-top:8px;';
+
+  const resetBtn = document.createElement('button');
+  resetBtn.className = 'btn btn-secondary admin-btn-sm';
+  resetBtn.textContent = 'Passwort zurücksetzen';
+  resetBtn.addEventListener('click', async () => {
+    resetBtn.textContent = 'Sende...';
+    try {
+      const data = await api(`users.php?id=${u.id}&action=reset`, { method: 'PUT' });
+      resultBox.innerHTML = data.mail_sent
+        ? '✓ Reset-Link per E-Mail gesendet.'
+        : `⚠ E-Mail nicht versendet. Link manuell teilen:<br><code style="word-break:break-all;">${escapeHtml(data.reset_link)}</code>`;
+    } catch (err) {
+      resultBox.textContent = 'Fehler: ' + err.message;
+    } finally {
+      resetBtn.textContent = 'Passwort zurücksetzen';
+    }
+  });
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.className = 'btn btn-secondary admin-btn-sm';
+  deleteBtn.textContent = 'Entfernen';
+  deleteBtn.addEventListener('click', async () => {
+    if (u.id === state.user.id) {
+      alert('Der eigene Zugang kann nicht selbst entfernt werden.');
+      return;
+    }
+    if (!confirm(`Zugang von ${u.email} wirklich endgültig entfernen? Das kann nicht rückgängig gemacht werden.`)) return;
+    await api(`users.php?id=${u.id}`, { method: 'DELETE' });
+    await loadTeamAdmin();
+  });
+
+  actionsRow.append(resetBtn, deleteBtn);
+  card.append(actionsRow, resultBox);
+
+  return card;
+}
 
 // ========== Start ==========
 

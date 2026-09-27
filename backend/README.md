@@ -24,7 +24,10 @@ php -S localhost:8130 -t .
 3. `backend/config.php` **direkt auf dem Server** anlegen (per SFTP-Dateimanager oder `nano` via SSH) -
    Vorlage ist `backend/config.example.php`, mit `db_driver => 'mysql'` und den echten Zugangsdaten.
    Diese Datei existiert bewusst nicht im Git-Repo und wird von jedem Deploy unangetastet gelassen.
-4. Ein SMTP-Postfach bei Strato fuer den Versand von Einladungs-/Reset-Mails eintragen (Phase 4).
+4. Resend-API-Key eintragen (`resend_api_key` in `config.php`) fuer den Versand von
+   Einladungs-/Reset-Mails - Key unter https://resend.com/api-keys erzeugen. Ohne
+   eigene verifizierte Domain funktioniert der Test-Absender `onboarding@resend.dev`
+   sofort und ausreichend fuer den Start.
 
 ## Automatisches Deployment
 
@@ -56,6 +59,21 @@ bzw. der Login-Antwort).
 | PUT     | `/api/blocks.php?id=<id>`         | editor+  | Block-Inhalt aktualisieren          |
 | PUT     | `/api/blocks.php?reorder=1`       | editor+  | Reihenfolge mehrerer Bloecke setzen |
 | DELETE  | `/api/blocks.php?id=<id>`         | editor+  | Block loeschen                      |
+| GET     | `/api/announcements.php`          | -        | Aktive Ankuendigungen (oeffentlich, Live-Seite) |
+| GET     | `/api/announcements.php?all=1`    | editor+  | Alle nicht-archivierten Ankuendigungen |
+| GET     | `/api/announcements.php?archived=1` | editor+ | Archivierte Ankuendigungen        |
+| POST    | `/api/announcements.php`          | editor+  | Neue Ankuendigung anlegen (max. 20) |
+| PUT     | `/api/announcements.php?id=<id>`  | editor+  | Ankuendigung aktualisieren           |
+| PUT     | `/api/announcements.php?id=<id>&restore=1` | editor+ | Aus dem Archiv wiederherstellen |
+| PUT     | `/api/announcements.php?reorder=1` | editor+ | Reihenfolge setzen                  |
+| DELETE  | `/api/announcements.php?id=<id>`  | editor+  | Endgueltig loeschen                  |
+| POST    | `/api/upload.php`                 | editor+  | Bild-Upload (Multipart), automatische WebP-Konvertierung |
+| GET     | `/api/users.php`                  | owner    | Team-Liste                          |
+| POST    | `/api/users.php`                  | owner    | Neuen Zugang einladen (E-Mail-Versand via Resend) |
+| PUT     | `/api/users.php?id=<id>&action=reset` | owner | Passwort-Reset-Link fuer Nutzer erzeugen |
+| DELETE  | `/api/users.php?id=<id>`          | owner    | Zugang endgueltig entfernen (keine Wiederherstellung) |
+| POST    | `/api/auth/set-password.php`      | -        | Einladung annehmen bzw. Reset abschliessen (Body: `{token, password}`) |
+| POST    | `/api/auth/forgot-password.php`   | -        | Self-Service-Reset anfordern (immer generische Antwort, Link nur per Mail) |
 
 ## Block-Inhaltsformat (`content`-Spalte, JSON)
 
@@ -76,6 +94,10 @@ bzw. der Login-Antwort).
 - Login-Rate-Limiting: 5 Fehlversuche pro E-Mail = 15 Minuten Sperre.
 - Audit-Log (`audit_log`-Tabelle) fuer Login, Block-Aenderungen etc.
 - `.htaccess` blockiert direkten Zugriff auf `config.php`, `schema.sql` und `lib/`.
+- Self-Service-Passwort-Reset antwortet immer identisch (kein Account-Enumeration-Leck)
+  und gibt den Reset-Link ausschliesslich per Mail heraus, nie in der API-Antwort.
+- Entfernte Team-Zugaenge werden hart geloescht (kein "undo") - Owner kann sich nicht
+  selbst entfernen.
 
-Noch offen (Phase 3/4): Admin-Dashboard-UI, Rollen-Verwaltung/Einladungs-Mails, Bild-Upload
-mit WebP-Konvertierung, Ankuendigungs-Board-Endpunkte.
+Noch offen (Phase 6): Kontaktformular auf eigenes Backend umstellen (aktuell FormSubmit.co),
+Rechtstexte (Impressum/Datenschutz) ueberarbeiten, Cookie-Banner falls noetig.

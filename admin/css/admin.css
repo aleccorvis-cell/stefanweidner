@@ -4,6 +4,12 @@ body {
   overflow: hidden;
 }
 
+/* [hidden] hat in der UA-Stylesheet niedrigere Prioritaet als eigenes CSS -
+   ohne diese Regel wuerden .login-screen/.admin-app trotz hidden-Attribut sichtbar bleiben. */
+[hidden] {
+  display: none !important;
+}
+
 /* ---------- Login ---------- */
 .login-screen {
   min-height: 100vh;
@@ -222,6 +228,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 10px;
   margin-bottom: var(--space-sm);
 }
 
