@@ -500,8 +500,15 @@ function openLinkPopover(editableEl, rect) {
   linkUrlInput.value = '';
 
   linkPopover.hidden = false;
+
+  // Horizontal innerhalb des Viewports halten (Link-Button sitzt oft nah am rechten Rand)
+  const popoverWidth = 280 + 32; // .link-popover width + padding
+  let left = rect.left + window.scrollX;
+  const maxLeft = window.scrollX + document.documentElement.clientWidth - popoverWidth - 8;
+  if (left > maxLeft) left = Math.max(8, maxLeft);
+
   linkPopover.style.top = `${rect.bottom + window.scrollY + 6}px`;
-  linkPopover.style.left = `${rect.left + window.scrollX}px`;
+  linkPopover.style.left = `${left}px`;
   linkUrlInput.focus();
 }
 
