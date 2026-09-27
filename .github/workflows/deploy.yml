@@ -4,10 +4,15 @@ name: Deploy to Strato
 # auf den Strato-Webspace synchronisiert. Erfordert diese Repository-Secrets
 # (Settings -> Secrets and variables -> Actions), die NUR im Browser vom
 # Repo-Owner selbst angelegt werden - niemals von Claude:
-#   STRATO_SFTP_HOST      z.B. ssh.strato.de (siehe Strato-Kundenmenue)
+#   STRATO_SFTP_HOST      z.B. 5021507168.ssh.w2.strato.hosting
 #   STRATO_SFTP_USER      SFTP-Benutzername
 #   STRATO_SFTP_PASSWORD  SFTP-Passwort
-#   STRATO_REMOTE_PATH    Zielverzeichnis auf dem Server, z.B. /htdocs
+#   STRATO_REMOTE_PATH    Zielverzeichnis auf dem Server, z.B. /
+#
+# Nutzt lftp (reines SFTP-Protokoll) statt einer Docker-Action, weil der
+# Strato-Zugang bewusst als "SFTP ohne SSH" angelegt ist - Tools, die einen
+# SSH-Exec-Kanal fuer Befehle wie "mkdir" brauchen, schlagen damit fehl.
+# lftp spricht nur das SFTP-Protokoll selbst (kein Shell-Zugriff noetig).
 
 on:
   push:
@@ -21,16 +26,28 @@ jobs:
       - name: Code auschecken
         uses: actions/checkout@v4
 
+      - name: lftp installieren
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
       - name: Per SFTP auf Strato synchronisieren
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          server: ${{ secrets.STRATO_SFTP_HOST }}
-          username: ${{ secrets.STRATO_SFTP_USER }}
-          password: ${{ secrets.STRATO_SFTP_PASSWORD }}
-          port: 22
-          local_path: './*'
-          remote_path: ${{ secrets.STRATO_REMOTE_PATH }}
-          sftpArgs: '-o ConnectTimeout=15'
-          # backend/config.php existiert bewusst NICHT im Repo (siehe .gitignore) -
-          # es wird einmalig direkt auf dem Server angelegt und von jedem Deploy
-          # unangetastet gelassen, da diese Aktion nur hochlaedt, nichts entfernt.
+        env:
+          SFTP_HOST: ${{ secrets.STRATO_SFTP_HOST }}
+          SFTP_USER: ${{ secrets.STRATO_SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.STRATO_SFTP_PASSWORD }}
+          REMOTE_PATH: ${{ secrets.STRATO_REMOTE_PATH }}
+        run: |
+          lftp -c "
+            set sftp:auto-confirm yes;
+            set net:max-retries 2;
+            set net:timeout 20;
+            open -u \"\$SFTP_USER\",\"\$SFTP_PASSWORD\" sftp://\$SFTP_HOST;
+            mirror --reverse --verbose \
+              --exclude-glob .git/ \
+              --exclude-glob .github/ \
+              --exclude-glob .claude/ \
+              --exclude-glob backend/config.php \
+              --exclude-glob backend/config.production-ready.php \
+              --exclude-glob backend/dev.sqlite \
+              --exclude-glob infrastructure.local.md \
+              ./ \"\$REMOTE_PATH\"
+          "
