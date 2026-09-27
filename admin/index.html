@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin - Written in Sound</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <!-- ========== Login-Bildschirm ========== -->
+    <div id="loginScreen" class="login-screen">
+        <form id="loginForm" class="login-card">
+            <div class="login-logo">
+                <svg viewBox="0 0 40 24" width="34" height="20" aria-hidden="true">
+                    <path class="wave-line wave-line-1" d="M2,12 C5,7 7,17 10,12 C12,9 13,15 15,12" />
+                    <path class="wave-line wave-line-2" d="M2,12 C5,4 7,20 10,12 C12,7 13,17 15,12" />
+                    <path class="wave-line wave-line-3" d="M2,12 C5,1 7,23 10,12 C12,5 13,19 15,12" />
+                </svg>
+                <span>W<span class="nav-logo-divider">|</span>S Admin</span>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="loginEmail">E-Mail</label>
+                <input class="form-input" type="email" id="loginEmail" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="loginPassword">Passwort</label>
+                <input class="form-input" type="password" id="loginPassword" required autocomplete="current-password">
+            </div>
+            <p id="loginError" class="form-error" style="display:none;"></p>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Anmelden</button>
+        </form>
+    </div>
+
+    <!-- ========== Admin-App (3 Spalten) ========== -->
+    <div id="adminApp" class="admin-app" hidden>
+        <header class="admin-topbar">
+            <div class="admin-brand">
+                <svg viewBox="0 0 40 24" width="28" height="17" aria-hidden="true">
+                    <path class="wave-line wave-line-1" d="M2,12 C5,7 7,17 10,12 C12,9 13,15 15,12" />
+                    <path class="wave-line wave-line-2" d="M2,12 C5,4 7,20 10,12 C12,7 13,17 15,12" />
+                    <path class="wave-line wave-line-3" d="M2,12 C5,1 7,23 10,12 C12,5 13,19 15,12" />
+                </svg>
+                <span>Admin</span>
+            </div>
+            <div class="admin-user">
+                <span id="currentUserLabel"></span>
+                <button id="logoutBtn" class="btn btn-secondary admin-btn-sm">Abmelden</button>
+            </div>
+        </header>
+
+        <div class="admin-columns">
+            <!-- Links: Seitenbaum -->
+            <nav class="admin-col admin-col-pages" aria-label="Seiten">
+                <h2 class="admin-col-title">Seiten</h2>
+                <ul id="pageTree" class="page-tree"></ul>
+            </nav>
+
+            <!-- Mitte: Live-Vorschau -->
+            <section class="admin-col admin-col-preview" aria-label="Vorschau">
+                <h2 class="admin-col-title">Vorschau</h2>
+                <div id="previewFrame" class="preview-frame">
+                    <div id="previewContent" class="preview-content"></div>
+                </div>
+            </section>
+
+            <!-- Rechts: Bearbeiten -->
+            <aside class="admin-col admin-col-editor" aria-label="Bearbeiten">
+                <h2 class="admin-col-title">Bearbeiten</h2>
+                <div id="blockList" class="block-list"></div>
+                <div class="add-block-row">
+                    <select id="newBlockType" class="form-select">
+                        <option value="heading">Überschrift</option>
+                        <option value="richtext">Textblock</option>
+                        <option value="image">Bild</option>
+                        <option value="button">Button</option>
+                        <option value="divider">Trennlinie</option>
+                    </select>
+                    <button id="addBlockBtn" class="btn btn-secondary admin-btn-sm">+ Block hinzufügen</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Link-Popover (Text + URL) -->
+    <div id="linkPopover" class="link-popover" hidden>
+        <div class="form-group">
+            <label class="form-label" for="linkTextInput">Angezeigter Text</label>
+            <input class="form-input" type="text" id="linkTextInput">
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="linkUrlInput">URL</label>
+            <input class="form-input" type="url" id="linkUrlInput" placeholder="https://">
+        </div>
+        <div class="link-popover-actions">
+            <button id="linkCancelBtn" class="btn btn-secondary admin-btn-sm" type="button">Abbrechen</button>
+            <button id="linkInsertBtn" class="btn btn-primary admin-btn-sm" type="button">Einfügen</button>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

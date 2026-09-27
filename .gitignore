@@ -5,6 +5,8 @@ backend/config.php
 backend/config.production-ready.php
 backend/dev.sqlite
 backend/uploads/
+/uploads/*
+!/uploads/.gitkeep
 
 # Lokale Infrastruktur-Doku (Hostnamen/Benutzernamen) - Repo ist oeffentlich, daher nicht einchecken
 infrastructure.local.md

@@ -1,0 +1,18 @@
+# Temporaerer "Coming Soon"-Modus, solange echte Inhalte (Vita/Referenzen/Media,
+# ueberarbeitetes Impressum/Datenschutz) noch fehlen. Oeffentliche Besucher sehen
+# ueberall coming-soon.html; /admin/ und /backend/ bleiben erreichbar, damit
+# Stefan/Alec weiter am Inhalt arbeiten koennen.
+#
+# Entfernen bzw. den Block auskommentieren, sobald die Seite fertig fuer den
+# echten Launch ist.
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/coming-soon\.html$
+RewriteCond %{REQUEST_URI} !^/assets/
+RewriteCond %{REQUEST_URI} !^/css/
+RewriteCond %{REQUEST_URI} !^/js/
+RewriteCond %{REQUEST_URI} !^/admin/
+RewriteCond %{REQUEST_URI} !^/backend/
+RewriteCond %{REQUEST_URI} !^/uploads/
+RewriteRule ^ /coming-soon.html [L]
