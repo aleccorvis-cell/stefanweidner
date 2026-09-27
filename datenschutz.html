@@ -4,11 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('wis-theme') === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) { }
+        })();
+    </script>
     <meta name="description"
-        content="Datenschutzerklärung - MAPMusic Stefan Weidner. Informationen zur Verarbeitung Ihrer Daten.">
+        content="Datenschutzerklärung - Written in Sound Stefan Weidner. Informationen zur Verarbeitung Ihrer Daten.">
     <meta name="robots" content="noindex, follow">
 
-    <title>Datenschutzerklärung | MAPMusic - Stefan Weidner</title>
+    <title>Datenschutzerklärung | Written in Sound - Stefan Weidner</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
@@ -22,9 +31,32 @@
     <!-- Navigation -->
     <nav class="nav" role="navigation" aria-label="Hauptnavigation">
         <div class="container nav-container">
-            <a href="index.html" class="nav-logo" aria-label="MAPMusic Startseite">
-                MAP<span class="text-gold">Music</span>
+            <a href="index.html" class="nav-logo" aria-label="Written in Sound Startseite">
+                <svg class="nav-logo-mark" viewBox="0 0 40 24" width="34" height="20" aria-hidden="true"
+                    focusable="false">
+                    <path class="wave-line wave-line-1" d="M2,12 C5,7 7,17 10,12 C12,9 13,15 15,12" />
+                    <path class="wave-line wave-line-2" d="M2,12 C5,4 7,20 10,12 C12,7 13,17 15,12" />
+                    <path class="wave-line wave-line-3" d="M2,12 C5,1 7,23 10,12 C12,5 13,19 15,12" />
+                </svg>
+                <span class="nav-logo-text">W<span class="nav-logo-divider">|</span>S</span>
             </a>
+
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Hell-/Dunkelmodus umschalten"
+                aria-pressed="false">
+                <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path
+                        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41">
+                    </path>
+                </svg>
+                <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
 
             <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
                 <span></span>
@@ -61,7 +93,7 @@
 
                     <h2>2. Verantwortliche Stelle</h2>
                     <p>
-                        Stefan Weidner, MAPMusic, Bruckstr. 24, 73066 Uhingen<br>
+                        Stefan Weidner, Written in Sound, Bruckstr. 24, 73066 Uhingen<br>
                         E-Mail: mannampiano@gmail.com
                     </p>
 
@@ -136,7 +168,7 @@
             </nav>
 
             <p class="footer-copyright">
-                © 2026 MAPMusic · Webdesign: <a href="#">Starmindsdesign by Alex</a> 💻
+                © 2026 Written in Sound · Webdesign: <a href="#">Starmindsdesign by Alex</a> 💻
             </p>
         </div>
     </footer>

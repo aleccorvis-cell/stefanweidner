@@ -1,0 +1,21 @@
+# Verteidigung in der Tiefe: config.php wird von PHP nie als Klartext ausgeliefert
+# (Apache+mod_php fuehrt .php immer aus), aber diese Regeln blocken direkten Zugriff
+# auf Konfigurations-/Schema-/Bibliotheksdateien zusaetzlich auf Server-Ebene.
+
+<FilesMatch "\.(sql|sqlite|md)$">
+    Require all denied
+</FilesMatch>
+
+<Files "config.php">
+    Require all denied
+</Files>
+
+<Files "config.example.php">
+    Require all denied
+</Files>
+
+# lib/ enthaelt nur Funktionsdefinitionen ohne eigene Ausgabe, wird aber trotzdem
+# nicht direkt aufgerufen - nur via require aus api/.
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/backend/lib/
+RewriteRule .* - [F,L]

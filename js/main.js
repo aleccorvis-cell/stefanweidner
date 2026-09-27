@@ -1,14 +1,49 @@
 /**
- * MAPMusic - Main JavaScript
- * Handles navigation, form validation, and animations
+ * Written in Sound - Main JavaScript
+ * Handles navigation, theme, form validation, and animations
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
+  initThemeToggle();
   initScrollEffects();
   initContactForm();
   initAnimations();
 });
+
+/* ========== Theme Toggle ========== */
+function initThemeToggle() {
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+
+  const STORAGE_KEY = 'wis-theme';
+
+  const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
+
+  const applyState = () => {
+    toggle.setAttribute('aria-pressed', isLight());
+  };
+
+  applyState();
+
+  toggle.addEventListener('click', () => {
+    const nextIsLight = !isLight();
+
+    if (nextIsLight) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+
+    try {
+      localStorage.setItem(STORAGE_KEY, nextIsLight ? 'light' : 'dark');
+    } catch (e) {
+      // localStorage nicht verfügbar (z.B. private Browsing) - Theme gilt nur für diese Sitzung
+    }
+
+    applyState();
+  });
+}
 
 /* ========== Navigation ========== */
 function initNavigation() {
@@ -143,7 +178,6 @@ function showError(element, message) {
   const errorDiv = document.createElement('div');
   errorDiv.className = 'form-error';
   errorDiv.textContent = message;
-  errorDiv.style.cssText = 'color: #ff6b6b; font-size: 0.875rem; margin-top: 0.25rem;';
   element.parentNode.appendChild(errorDiv);
 }
 

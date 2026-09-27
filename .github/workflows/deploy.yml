@@ -1,0 +1,36 @@
+name: Deploy to Strato
+
+# Bei jedem Push auf main wird der komplette Stand automatisch per SFTP
+# auf den Strato-Webspace synchronisiert. Erfordert diese Repository-Secrets
+# (Settings -> Secrets and variables -> Actions), die NUR im Browser vom
+# Repo-Owner selbst angelegt werden - niemals von Claude:
+#   STRATO_SFTP_HOST      z.B. ssh.strato.de (siehe Strato-Kundenmenue)
+#   STRATO_SFTP_USER      SFTP-Benutzername
+#   STRATO_SFTP_PASSWORD  SFTP-Passwort
+#   STRATO_REMOTE_PATH    Zielverzeichnis auf dem Server, z.B. /htdocs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v4
+
+      - name: Per SFTP auf Strato synchronisieren
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          server: ${{ secrets.STRATO_SFTP_HOST }}
+          username: ${{ secrets.STRATO_SFTP_USER }}
+          password: ${{ secrets.STRATO_SFTP_PASSWORD }}
+          port: 22
+          local_path: './*'
+          remote_path: ${{ secrets.STRATO_REMOTE_PATH }}
+          sftpArgs: '-o ConnectTimeout=15'
+          # backend/config.php existiert bewusst NICHT im Repo (siehe .gitignore) -
+          # es wird einmalig direkt auf dem Server angelegt und von jedem Deploy
+          # unangetastet gelassen, da diese Aktion nur hochlaedt, nichts entfernt.

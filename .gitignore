@@ -1,1 +1,10 @@
 .DS_Store
+
+# Backend-Zugangsdaten - niemals einchecken
+backend/config.php
+backend/config.production-ready.php
+backend/dev.sqlite
+backend/uploads/
+
+# Lokale Infrastruktur-Doku (Hostnamen/Benutzernamen) - Repo ist oeffentlich, daher nicht einchecken
+infrastructure.local.md
