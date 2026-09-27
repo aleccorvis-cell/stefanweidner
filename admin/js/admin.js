@@ -873,21 +873,31 @@ function buildAnnouncementCard(item) {
   });
 
   const dateRow = document.createElement('div');
-  dateRow.style.cssText = 'display:flex; gap:8px;';
+  dateRow.style.cssText = 'display:flex; flex-direction:column; gap:8px;';
+
+  const startLabel = document.createElement('label');
+  startLabel.className = 'form-label';
+  startLabel.textContent = 'Start (leer = sofort aktiv)';
+  startLabel.style.cssText = 'font-size:var(--text-xs); margin-bottom:-4px;';
 
   const startInput = document.createElement('input');
   startInput.type = 'datetime-local';
   startInput.className = 'form-input';
   startInput.value = toDatetimeLocal(item.start_at);
-  startInput.title = 'Start (leer = sofort)';
+  startInput.style.width = '100%';
+
+  const endLabel = document.createElement('label');
+  endLabel.className = 'form-label';
+  endLabel.textContent = 'Ende (leer = unbegrenzt)';
+  endLabel.style.cssText = 'font-size:var(--text-xs); margin-bottom:-4px;';
 
   const endInput = document.createElement('input');
   endInput.type = 'datetime-local';
   endInput.className = 'form-input';
   endInput.value = toDatetimeLocal(item.end_at);
-  endInput.title = 'Ende (leer = unbegrenzt)';
+  endInput.style.width = '100%';
 
-  dateRow.append(startInput, endInput);
+  dateRow.append(startLabel, startInput, endLabel, endInput);
 
   const saveBtn = document.createElement('button');
   saveBtn.className = 'btn btn-primary admin-btn-sm block-save-btn';
