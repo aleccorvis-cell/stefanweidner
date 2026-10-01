@@ -1,0 +1,26 @@
+{
+ "swm-desktop": {
+  "top": "#141413",
+  "bottom": "#15120e",
+  "left": "#0c0c0c",
+  "right": "#090909"
+ },
+ "swm-mobile": {
+  "top": "#110a03",
+  "bottom": "#060502",
+  "left": "#130b04",
+  "right": "#160c03"
+ },
+ "wis-desktop": {
+  "top": "#131312",
+  "bottom": "#171512",
+  "left": "#0d0d0d",
+  "right": "#0c0c0b"
+ },
+ "wis-mobile": {
+  "top": "#060604",
+  "bottom": "#080806",
+  "left": "#0a0908",
+  "right": "#0a0a08"
+ }
+}

@@ -1,0 +1,42 @@
+@font-face{font-family:'Cormorant Garamond';src:url('fonts/CormorantGaramond-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bodoni Moda';src:url('fonts/BodoniModa-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/Inter-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+
+:root{--bg:#0d0d0c;--gold:#d9b06b;--ivory:#f8f6ef;--muted:#a39d92}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{min-height:100vh;background:var(--bg);color:var(--ivory);font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Coming-Soon-Seite: freigegebene Komplettgrafik, nie beschnitten (contain) */
+body.stage{height:100svh;overflow:hidden}
+.stage picture{display:block;width:100vw;height:100svh}
+.stage img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:var(--bg)}
+
+/* Sprachumschalter + Fusszeile liegen ueber der Grafik */
+.lang{position:fixed;top:12px;right:14px;z-index:5;font-size:.78rem;letter-spacing:.14em;background:rgba(13,13,12,.6);padding:.2rem .45rem}
+.lang a{color:var(--muted);text-decoration:none;padding:.35em .45em}
+.lang a:hover,.lang a:focus-visible{color:var(--ivory)}
+.lang a[aria-current="true"]{color:var(--gold)}
+.lang span{color:var(--muted);opacity:.5}
+footer{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:8px 12px 10px;text-align:center;font-size:.68rem;letter-spacing:.06em;color:var(--muted);line-height:1.5}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover,footer a:focus-visible{color:var(--gold)}
+footer .sep{margin:0 .6em;opacity:.5}
+
+/* Impressum (normale Seite) */
+body.page{padding:0 16px 80px}
+.page .lang{position:absolute}
+.page footer{position:static;margin-top:3rem;padding-bottom:24px}
+.legal{width:min(100%,720px);margin:0 auto;padding:clamp(56px,8vw,96px) 4px 0;line-height:1.7;font-size:.95rem;color:#d8d3c8}
+.legal h1{font-family:'Bodoni Moda',Georgia,serif;font-weight:400;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--ivory);margin-bottom:1.5rem}
+.legal h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:1.35rem;color:var(--gold);margin:1.8rem 0 .5rem}
+.legal p{margin-bottom:.8rem}
+.legal a{color:var(--gold)}
+.legal .back{display:inline-block;margin-bottom:2rem;text-decoration:none;font-size:.85rem;letter-spacing:.08em}
+
+/* Sprachauswahl-Startseite (Fallback ohne Weiterleitung) */
+body.chooser{display:grid;place-items:center;height:100svh}
+.choose{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;letter-spacing:.2em}
+.choose a{color:var(--gold);text-decoration:none;padding:0 .6em}
+.choose span{color:var(--muted)}
