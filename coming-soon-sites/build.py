@@ -13,7 +13,7 @@ MAIL = "info@stefanweidnermusic.com"
 
 TXT = {
     "de": {
-        "imp": "Impressum", "back": "← Zurück", "switch": "Sprache wählen", "credit": "Webdesign",
+        "imp": "Impressum", "dp": "Datenschutz", "back": "← Zurück", "switch": "Sprache wählen", "credit": "Webdesign",
         "swm": {"title": "Stefan Weidner Music – Coming soon",
                 "desc": "Stefan Weidner Music – Stefan Weidner Live & Written in Sound. Die neue Website ist in Entwicklung.",
                 "alt": "Stefan Weidner Music – Musician, Composer, Arranger, Producer. Coming soon. Ein neues digitales Zuhause für beide Musikwelten ist in Entwicklung. Stefan Weidner Live und Written in Sound."},
@@ -22,7 +22,7 @@ TXT = {
                 "alt": "Written in Sound by Stefan Weidner – From Score to Sound. Original cinematic, orchestral & theatrical music. Coming soon. Die neue Website befindet sich derzeit in Entwicklung."},
     },
     "en": {
-        "imp": "Legal notice", "back": "← Back", "switch": "Choose language", "credit": "Webdesign",
+        "imp": "Legal notice", "dp": "Privacy policy", "back": "← Back", "switch": "Choose language", "credit": "Webdesign",
         "swm": {"title": "Stefan Weidner Music – Coming soon",
                 "desc": "Stefan Weidner Music – Stefan Weidner Live & Written in Sound. The new website is in development.",
                 "alt": "Stefan Weidner Music – Musician, Composer, Arranger, Producer. Coming soon. A new digital home for both musical worlds is in development. Stefan Weidner Live and Written in Sound."},
@@ -56,6 +56,44 @@ IMPRESSUM = {
       <p>Phone: +49 174 7089514<br>Email: <a href="mailto:{mail}">{mail}</a></p>
       <h2>Consumer dispute resolution</h2>
       <p>We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board (§ 36 VSBG).</p>
+    </div>""",
+}
+
+# Datenschutz: kurze Fassung fuer eine reine Informationsseite (keine Cookies, kein Tracking, keine externen Dienste)
+DATENSCHUTZ = {
+    "de": """
+    <div class="legal">
+      <a class="back" href="index.html">{back}</a>
+      <h1>Datenschutzerklärung</h1>
+      <h2>Verantwortlicher</h2>
+      <p>Stefan Weidner<br>c/o Block Service<br>Stuttgarter Str. 106<br>70736 Fellbach, Deutschland<br>E-Mail: <a href="mailto:{mail}">{mail}</a></p>
+      <h2>Hosting und Server-Logfiles</h2>
+      <p>Diese Website wird bei der STRATO GmbH (Otto-Ostrowski-Straße 7, 10249 Berlin) gehostet. Beim Aufruf der Seite verarbeitet der Webserver technisch notwendige Zugriffsdaten, zum Beispiel IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp und Betriebssystem. Die Verarbeitung dient dem sicheren und stabilen Betrieb der Website.</p>
+      <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am Betrieb und an der Sicherheit der Website). Mit dem Hoster besteht ein Vertrag zur Auftragsverarbeitung.</p>
+      <p><strong>Speicherdauer:</strong> Die Daten werden nur so lange gespeichert, wie es für diesen Zweck erforderlich ist; die konkrete Frist legt der Hosting-Anbieter fest.</p>
+      <h2>Kontaktaufnahme per E-Mail</h2>
+      <p>Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b oder f DSGVO). Die Daten werden gelöscht, sobald sie dafür nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+      <h2>Cookies, Tracking, externe Dienste</h2>
+      <p>Diese Website setzt keine Cookies, verwendet keine Analyse- oder Tracking-Werkzeuge und bindet keine externen Inhalte, Schriftarten oder Dienste ein. Alle Bilder und Schriften werden direkt vom eigenen Server ausgeliefert.</p>
+      <h2>Ihre Rechte</h2>
+      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen die Verarbeitung. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
+    </div>""",
+    "en": """
+    <div class="legal">
+      <a class="back" href="index.html">{back}</a>
+      <h1>Privacy policy</h1>
+      <h2>Controller</h2>
+      <p>Stefan Weidner<br>c/o Block Service<br>Stuttgarter Str. 106<br>70736 Fellbach, Germany<br>Email: <a href="mailto:{mail}">{mail}</a></p>
+      <h2>Hosting and server log files</h2>
+      <p>This website is hosted by STRATO GmbH (Otto-Ostrowski-Straße 7, 10249 Berlin, Germany). When you visit the site, the web server processes technically necessary access data, for example IP address, date and time, requested page, browser type and operating system. This serves the secure and stable operation of the website.</p>
+      <p><strong>Legal basis:</strong> Art. 6(1)(f) GDPR (legitimate interest in operating and securing the website). A data processing agreement is in place with the hosting provider.</p>
+      <p><strong>Storage period:</strong> The data is stored only as long as necessary for this purpose; the specific period is determined by the hosting provider.</p>
+      <h2>Contact by email</h2>
+      <p>If you contact us by email, we process your details to handle your request (Art. 6(1)(b) or (f) GDPR). The data is deleted once it is no longer required for this purpose and no statutory retention obligations apply.</p>
+      <h2>Cookies, tracking, external services</h2>
+      <p>This website does not set cookies, does not use analytics or tracking tools and does not embed external content, fonts or services. All images and fonts are delivered directly from our own server.</p>
+      <h2>Your rights</h2>
+      <p>You have the right of access, rectification, erasure, restriction of processing, data portability and the right to object. You may also lodge a complaint with a data protection supervisory authority, for example the State Commissioner for Data Protection and Freedom of Information of Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart, Germany.</p>
     </div>""",
 }
 
@@ -183,8 +221,9 @@ def build():
             edges = json.loads((ROOT / "shared" / "img" / "edges.json").read_text())
             edge_css = EDGE_CSS.format(d=edges[key + "-desktop"], m=edges[key + "-mobile"])
             head = dict(lang=lang, domain=domain, extra_head="", **t[key])
-            footer = FOOTER.format(imp_link=f'<a href="impressum.html">{t["imp"]}</a><span class="sep">·</span>',
-                                   credit=t["credit"])
+            links = (f'<a href="impressum.html">{t["imp"]}</a><span class="sep">·</span>'
+                     f'<a href="datenschutz.html">{t["dp"]}</a><span class="sep">·</span>')
+            footer = FOOTER.format(imp_link=links, credit=t["credit"])
             stage = HEAD.format(**dict(head, extra_head=edge_css)) + STAGE.format(
                 nav=NAV.format(href_de="../de/", href_en="../en/", **nav_vars),
                 title=t[key]["title"], key=key, lang=lang, alt=t[key]["alt"], footer=footer)
@@ -193,8 +232,12 @@ def build():
             imp = HEAD.format(**imp_head) + PAGE.format(
                 nav=NAV.format(href_de="../de/impressum.html", href_en="../en/impressum.html", **nav_vars),
                 main=IMPRESSUM[lang].format(back=t["back"], mail=MAIL),
-                footer=FOOTER.format(imp_link="", credit=t["credit"]))
+                footer=footer)
             (out / lang / "impressum.html").write_text(imp, encoding="utf-8")
+            dsg = HEAD.format(**dict(head, title=f'{t["dp"]} – Stefan Weidner Music', extra_head="")) + PAGE.format(
+                nav=NAV.format(href_de="../de/datenschutz.html", href_en="../en/datenschutz.html", **nav_vars),
+                main=DATENSCHUTZ[lang].format(back=t["back"], mail=MAIL), footer=footer)
+            (out / lang / "datenschutz.html").write_text(dsg, encoding="utf-8")
         (out / "index.html").write_text(CHOOSER.format(title=TXT["en"][key]["title"], domain=domain), encoding="utf-8")
         extra = WIS_EXTRA if key == "wis" else ""
         (out / ".htaccess").write_text(HTACCESS.format(extra=extra), encoding="utf-8")
