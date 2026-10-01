@@ -59,41 +59,87 @@ IMPRESSUM = {
     </div>""",
 }
 
-# Datenschutz: kurze Fassung fuer eine reine Informationsseite (keine Cookies, kein Tracking, keine externen Dienste)
+# Datenschutz: Text des Kunden (Stand Oktober 2026); EN = Uebersetzung
 DATENSCHUTZ = {
     "de": """
     <div class="legal">
       <a class="back" href="index.html">{back}</a>
       <h1>Datenschutzerklärung</h1>
-      <h2>Verantwortlicher</h2>
-      <p>Stefan Weidner<br>c/o Block Service<br>Stuttgarter Str. 106<br>70736 Fellbach, Deutschland<br>E-Mail: <a href="mailto:{mail}">{mail}</a></p>
-      <h2>Hosting und Server-Logfiles</h2>
-      <p>Diese Website wird bei der STRATO GmbH (Otto-Ostrowski-Straße 7, 10249 Berlin) gehostet. Beim Aufruf der Seite verarbeitet der Webserver technisch notwendige Zugriffsdaten, zum Beispiel IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp und Betriebssystem. Die Verarbeitung dient dem sicheren und stabilen Betrieb der Website.</p>
-      <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am Betrieb und an der Sicherheit der Website). Mit dem Hoster besteht ein Vertrag zur Auftragsverarbeitung.</p>
-      <p><strong>Speicherdauer:</strong> Die Daten werden nur so lange gespeichert, wie es für diesen Zweck erforderlich ist; die konkrete Frist legt der Hosting-Anbieter fest.</p>
-      <h2>Kontaktaufnahme per E-Mail</h2>
-      <p>Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b oder f DSGVO). Die Daten werden gelöscht, sobald sie dafür nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
-      <h2>Cookies, Tracking, externe Dienste</h2>
-      <p>Diese Website setzt keine Cookies, verwendet keine Analyse- oder Tracking-Werkzeuge und bindet keine externen Inhalte, Schriftarten oder Dienste ein. Alle Bilder und Schriften werden direkt vom eigenen Server ausgeliefert.</p>
-      <h2>Ihre Rechte</h2>
-      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen die Verarbeitung. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
+      <h2>1. Verantwortlicher</h2>
+      <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
+      <p>Stefan Weidner<br>c/o Block Service<br>Stuttgarter Str. 106<br>70736 Fellbach<br>Deutschland<br>E-Mail: <a href="mailto:{mail}">{mail}</a></p>
+      <h2>2. Hosting und Server-Logfiles</h2>
+      <p>Diese Website wird bei der STRATO GmbH, Otto-Ostrowski-Straße 7, 10249 Berlin, Deutschland, gehostet.</p>
+      <p>Beim Aufruf dieser Website werden durch den Hostinganbieter technisch erforderliche Daten verarbeitet. Hierzu können insbesondere die IP-Adresse des zugreifenden Geräts, Datum und Uhrzeit des Zugriffs, die aufgerufene Seite bzw. Datei, Browsertyp und Browserversion, Betriebssystem sowie die zuvor aufgerufene Seite (Referrer-URL) gehören.</p>
+      <p>Die Verarbeitung erfolgt, um die sichere, stabile und technisch fehlerfreie Bereitstellung der Website zu gewährleisten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im sicheren und zuverlässigen Betrieb dieser Website.</p>
+      <p>STRATO speichert IP-Adressen zur Erkennung und Abwehr von Angriffen nach eigenen Angaben für maximal sieben Tage. Die für uns bereitgestellten Webserver-Logfiles enthalten anonymisierte IP-Adressen.</p>
+      <p>Mit STRATO besteht, soweit erforderlich, eine Vereinbarung zur Auftragsverarbeitung gemäß Art. 28 DSGVO.</p>
+      <h2>3. Kontaktaufnahme per E-Mail</h2>
+      <p>Wenn Sie uns per E-Mail kontaktieren, werden die von Ihnen übermittelten Angaben einschließlich Ihrer Kontaktdaten verarbeitet, um Ihre Anfrage zu bearbeiten und gegebenenfalls Anschlussfragen zu beantworten.</p>
+      <p>Erfolgt die Kontaktaufnahme im Zusammenhang mit der Anbahnung oder Durchführung eines Vertrags, ist Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO. In anderen Fällen erfolgt die Verarbeitung auf Grundlage unseres berechtigten Interesses an der Bearbeitung von Anfragen gemäß Art. 6 Abs. 1 lit. f DSGVO.</p>
+      <p>Die Daten werden gelöscht, sobald sie für die Bearbeitung der Anfrage nicht mehr erforderlich sind, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+      <h2>4. Cookies, Tracking und externe Dienste</h2>
+      <p>Auf dieser Website werden keine Analyse-, Tracking- oder Marketingdienste eingesetzt.</p>
+      <p>Es werden keine externen Schriftarten, Social-Media-Plugins, Karten-, Video-, Audio- oder sonstigen Inhalte von Drittanbietern eingebunden. Schriftarten, Bilder und sonstige Inhalte der Website werden lokal bereitgestellt.</p>
+      <p>Wir setzen keine nicht technisch erforderlichen Cookies zu Analyse-, Marketing- oder vergleichbaren Zwecken ein.</p>
+      <h2>5. Weitergabe von Daten</h2>
+      <p>Eine Weitergabe personenbezogener Daten an Dritte erfolgt grundsätzlich nicht, sofern dies nicht zur Bereitstellung und zum sicheren Betrieb dieser Website erforderlich ist, eine gesetzliche Verpflichtung besteht oder Sie ausdrücklich eingewilligt haben.</p>
+      <p>Im Rahmen des Hostings kann STRATO als Auftragsverarbeiter Zugriff auf technisch erforderliche Daten erhalten.</p>
+      <p>Eine Übermittlung personenbezogener Daten in Drittländer außerhalb der Europäischen Union bzw. des Europäischen Wirtschaftsraums findet im Rahmen der derzeit auf dieser Website eingesetzten Dienste nicht statt.</p>
+      <h2>6. Ihre Rechte</h2>
+      <p>Sie haben im Rahmen der gesetzlichen Voraussetzungen insbesondere das Recht auf:</p>
+      <ul>
+        <li>Auskunft über Ihre personenbezogenen Daten gemäß Art. 15 DSGVO,</li>
+        <li>Berichtigung unrichtiger Daten gemäß Art. 16 DSGVO,</li>
+        <li>Löschung Ihrer Daten gemäß Art. 17 DSGVO,</li>
+        <li>Einschränkung der Verarbeitung gemäß Art. 18 DSGVO,</li>
+        <li>Datenübertragbarkeit gemäß Art. 20 DSGVO sowie</li>
+        <li>Widerspruch gegen eine Verarbeitung gemäß Art. 21 DSGVO.</li>
+      </ul>
+      <p>Sie haben außerdem gemäß Art. 77 DSGVO das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen die DSGVO verstößt.</p>
+      <h2>7. Automatisierte Entscheidungsfindung</h2>
+      <p>Eine automatisierte Entscheidungsfindung einschließlich Profiling findet nicht statt.</p>
+      <p class="stand">Stand: Oktober 2026</p>
     </div>""",
     "en": """
     <div class="legal">
       <a class="back" href="index.html">{back}</a>
       <h1>Privacy policy</h1>
-      <h2>Controller</h2>
-      <p>Stefan Weidner<br>c/o Block Service<br>Stuttgarter Str. 106<br>70736 Fellbach, Germany<br>Email: <a href="mailto:{mail}">{mail}</a></p>
-      <h2>Hosting and server log files</h2>
-      <p>This website is hosted by STRATO GmbH (Otto-Ostrowski-Straße 7, 10249 Berlin, Germany). When you visit the site, the web server processes technically necessary access data, for example IP address, date and time, requested page, browser type and operating system. This serves the secure and stable operation of the website.</p>
-      <p><strong>Legal basis:</strong> Art. 6(1)(f) GDPR (legitimate interest in operating and securing the website). A data processing agreement is in place with the hosting provider.</p>
-      <p><strong>Storage period:</strong> The data is stored only as long as necessary for this purpose; the specific period is determined by the hosting provider.</p>
-      <h2>Contact by email</h2>
-      <p>If you contact us by email, we process your details to handle your request (Art. 6(1)(b) or (f) GDPR). The data is deleted once it is no longer required for this purpose and no statutory retention obligations apply.</p>
-      <h2>Cookies, tracking, external services</h2>
-      <p>This website does not set cookies, does not use analytics or tracking tools and does not embed external content, fonts or services. All images and fonts are delivered directly from our own server.</p>
-      <h2>Your rights</h2>
-      <p>You have the right of access, rectification, erasure, restriction of processing, data portability and the right to object. You may also lodge a complaint with a data protection supervisory authority, for example the State Commissioner for Data Protection and Freedom of Information of Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart, Germany.</p>
+      <h2>1. Controller</h2>
+      <p>The controller responsible for data processing on this website is:</p>
+      <p>Stefan Weidner<br>c/o Block Service<br>Stuttgarter Str. 106<br>70736 Fellbach<br>Germany<br>Email: <a href="mailto:{mail}">{mail}</a></p>
+      <h2>2. Hosting and server log files</h2>
+      <p>This website is hosted by STRATO GmbH, Otto-Ostrowski-Straße 7, 10249 Berlin, Germany.</p>
+      <p>When this website is accessed, the hosting provider processes technically necessary data. This may include in particular the IP address of the accessing device, date and time of access, the page or file requested, browser type and version, operating system, and the previously visited page (referrer URL).</p>
+      <p>The processing serves to ensure the secure, stable and technically error-free provision of the website. The legal basis is Art. 6(1)(f) GDPR. Our legitimate interest lies in the secure and reliable operation of this website.</p>
+      <p>According to its own information, STRATO stores IP addresses for the detection and defence of attacks for a maximum of seven days. The web server log files made available to us contain anonymised IP addresses.</p>
+      <p>Where required, a data processing agreement pursuant to Art. 28 GDPR is in place with STRATO.</p>
+      <h2>3. Contact by email</h2>
+      <p>If you contact us by email, the information you send, including your contact details, is processed in order to handle your enquiry and to answer any follow-up questions.</p>
+      <p>If contact is made in connection with the initiation or performance of a contract, the legal basis is Art. 6(1)(b) GDPR. In other cases, processing is based on our legitimate interest in handling enquiries pursuant to Art. 6(1)(f) GDPR.</p>
+      <p>The data is deleted as soon as it is no longer required to handle the enquiry, unless statutory retention obligations apply.</p>
+      <h2>4. Cookies, tracking and external services</h2>
+      <p>No analytics, tracking or marketing services are used on this website.</p>
+      <p>No external fonts, social media plugins, maps, video, audio or other third-party content are embedded. Fonts, images and other content of the website are provided locally.</p>
+      <p>We do not use cookies that are not technically necessary for analytics, marketing or similar purposes.</p>
+      <h2>5. Disclosure of data</h2>
+      <p>Personal data is generally not passed on to third parties, unless this is necessary for the provision and secure operation of this website, there is a legal obligation, or you have expressly consented.</p>
+      <p>In the context of hosting, STRATO may gain access to technically necessary data as a processor.</p>
+      <p>Personal data is not transferred to third countries outside the European Union or the European Economic Area in connection with the services currently used on this website.</p>
+      <h2>6. Your rights</h2>
+      <p>Within the framework of the statutory requirements, you have in particular the right to:</p>
+      <ul>
+        <li>access to your personal data pursuant to Art. 15 GDPR,</li>
+        <li>rectification of inaccurate data pursuant to Art. 16 GDPR,</li>
+        <li>erasure of your data pursuant to Art. 17 GDPR,</li>
+        <li>restriction of processing pursuant to Art. 18 GDPR,</li>
+        <li>data portability pursuant to Art. 20 GDPR, and</li>
+        <li>object to processing pursuant to Art. 21 GDPR.</li>
+      </ul>
+      <p>You also have the right under Art. 77 GDPR to lodge a complaint with a data protection supervisory authority if you believe that the processing of your personal data violates the GDPR.</p>
+      <h2>7. Automated decision-making</h2>
+      <p>There is no automated decision-making, including profiling.</p>
+      <p class="stand">Last updated: October 2026</p>
     </div>""",
 }
 
