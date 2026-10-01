@@ -1,32 +1,38 @@
 # 04 – Coming-Soon-Seiten
 
 ## Was es ist
-Zwei eigenständige, einseitige statische Seiten ohne Funktion – je Domain, je **Deutsch und Englisch getrennt** (Umschalter `DE · EN` oben rechts; nie beide Sprachen auf einer Seite):
+Zwei eigenständige Seiten ohne Funktion, je Domain **Deutsch und Englisch getrennt** (Umschalter `DE · EN` oben rechts; nie beide Sprachen auf einer Seite). Grundlage sind die freigegebenen Komplettgrafiken aus dem Paket *HiDrive-ComingSoon_Webdesigner_FINAL_V7_FINAL_2026-10-01*:
 
-| Domain | Look |
+| Domain | Inhalt |
 |---|---|
-| `stefanweidnermusic.com` | Portal-Look: Header „Stefan Weidner Music“, „Coming soon“, darunter die Kacheln Stefan Weidner Live und Written in Sound (nicht klickbar; Desktop nebeneinander, Mobil untereinander) |
-| `writteninsoundmusic.com` | Eigenständige Written-in-Sound-Seite: Master-Kachel (Logo, Claim, Domain) + „Coming soon“. `writteninsoundmusic.de` leitet per `.htaccess` dauerhaft (301) auf die `.com` weiter |
+| `stefanweidnermusic.com` | Stefan Weidner Music (SW-Monogramm), COMING SOON, darunter Stefan Weidner Live (links) und Written in Sound (rechts) |
+| `writteninsoundmusic.com` | Eigenständige Written-in-Sound-Seite. `writteninsoundmusic.de` leitet per `.htaccess` dauerhaft (301) auf die `.com` |
 
-- Adressen: `/de/` und `/en/`; die Startadresse `/` leitet je nach Browser-Sprache weiter (`.htaccess`, Fallback JavaScript-Seite `index.html`).
-- `noindex` + `robots.txt` (bis zum Launch nicht in Suchmaschinen), keine Cookies, kein Tracking, keine externen Anfragen, Schriften lokal.
-- Impressum/Datenschutz bewusst **noch nicht** enthalten (kommen mit der echten Seite, neue Anschrift).
+- Adressen `/de/` und `/en/`; `/` leitet je nach Browser-Sprache weiter (`.htaccess`, Fallback `index.html`).
+- Fußzeile: Impressum / Legal notice, © 2026 Stefan Weidner, Webdesign-Credit.
+- **Impressum** (DE/EN): Stefan Weidner, c/o Block Service, Stuttgarter Str. 106, 70736 Fellbach; Kontakt `info@stefanweidnermusic.com` (Postfach wird direkt bei Strato gelesen, keine Weiterleitung nötig), Telefon.
+- `noindex` + `robots.txt`; keine Cookies, kein Tracking, keine externen Anfragen.
+- Noch **keine Datenschutzerklärung** (bewusst später).
+
+## Abweichungen zum gelieferten V7-Paket (und warum)
+1. **Zwei Sprachen:** Das Paket hat den englischen Satz fest im Bild. Für Deutsch wurde nur dieser Satz entfernt und in Cormorant Garamond neu gesetzt (SWM: „Ein neues digitales Zuhause für beide Musikwelten ist in Entwicklung.“, WIS: „Die neue Website befindet sich derzeit in Entwicklung.“). Logos, Wortmarken, COMING SOON, Farben unverändert.
+2. **SWM-Mobile:** Die Zeile „…is in development.“ war unten abgeschnitten (Unterlängen). Sie wurde in beiden Sprachen neu gesetzt.
+3. **WIS-Mobile:** Die zwei sichtbaren Kästen (heller als der Hintergrund) wurden an den Kanten weich ausgeblendet.
+4. **Tablet-Grafiken** (4:3) entfallen: sie zeigten die Desktop-Grafik in einem sichtbaren Rahmen. Hochformat bis 1099 px = Mobile-Grafik, sonst Desktop-Grafik, jeweils `object-fit: contain` (nie beschnitten).
+5. **Hintergrund** neben der Grafik wird aus den Bildrändern abgeleitet (statt einheitlich `#0d0d0c`), damit bei abweichenden Seitenverhältnissen keine harte Kante entsteht.
+6. **Seitenstruktur:** echter Seitentitel/Beschreibung, `lang`, `hreflang`, Alt-Texte und eine unsichtbare H1 statt reiner Bildseite.
 
 ## Quellen & Build
-Ordner `coming-soon-sites/`: `shared/` (Bilder als WebP aus den freigegebenen Masterdateien, Schriften, CSS) und `build.py`.
-
-```bash
-cd coming-soon-sites && python3 build.py   # erzeugt dist/<domain>/
-```
+`coming-soon-sites/`: `tools/make_images.py` (Grafiken je Sprache aus dem V7-Paket), `build.py` (Seiten), `shared/` (Schriften, CSS, Grafiken). Die Grafiken selbst liegen bewusst nicht im öffentlichen Repo.
 
 ## Upload auf Strato (Hosting Basic, ein Paket, drei Domains)
-Domains im Paket: stefanweidnermusic.com, writteninsoundmusic.com, writteninsoundmusic.de (alle aktiviert, SSL aktiv). Webspace-Pfad `/home/www`.
+Domains: stefanweidnermusic.com, writteninsoundmusic.com, writteninsoundmusic.de (SSL aktiv). Webspace-Pfad `/home/www`.
+1. *Domains verwalten*: Verzeichnisse prüfen. Empfehlung `/stefanweidnermusic` und `/writteninsoundmusic` (`.com` und `.de` gemeinsam).
+2. Inhalt der Ordner `stefanweidnermusic.com/` bzw. `writteninsoundmusic.com/` per SFTP/Dateimanager hochladen (inkl. `.htaccess`), Platzhalter-`index.html` ersetzen.
+3. Prüfen: beide Domains, `/de/`, `/en/`, Umschalter, Impressum, `.de`-Weiterleitung, Smartphone.
 
-1. Strato → *Domains verwalten*: pro Domain das **Verzeichnis** ansehen bzw. festlegen. Empfehlung: `stefanweidnermusic.com` → `/stefanweidnermusic`, `writteninsoundmusic.com` **und** `.de` → `/writteninsoundmusic` (so greift die .de-Weiterleitung).
-2. Per SFTP/Webspace-Dateimanager den **Inhalt** von `dist/stefanweidnermusic.com/` bzw. `dist/writteninsoundmusic.com/` in das jeweilige Verzeichnis legen (inkl. versteckter `.htaccess`, vorhandene Strato-Platzhalter-`index.html` ersetzen).
-3. Prüfen: beide Domains (mit/ohne `www`), `/de/`, `/en/`, Umschalter, Smartphone.
-
-Zugangsdaten gibt der Repo-Owner selbst ein.
+## E-Mail
+Postfach `info@stefanweidnermusic.com` in Strato anlegen (E-Mail → Postfächer; im Paket sind 3 Postfächer enthalten, 1 genutzt). Lesen per Strato-Webmail oder Mail-Programm. Die alte private Adresse steht nicht mehr auf den neuen Seiten (die alten Repo-Seiten enthalten sie noch und werden ersetzt).
 
 ## Später
-Der Echtbetrieb ersetzt den Inhalt der Verzeichnisse (GitHub-Deploy). `noindex`/`robots.txt` entfernen, Impressum/Datenschutz ergänzen.
+Echtbetrieb ersetzt den Inhalt der Verzeichnisse (GitHub-Deploy). `noindex`/`robots.txt` entfernen, Datenschutzerklärung ergänzen.
