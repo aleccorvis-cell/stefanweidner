@@ -10,3 +10,6 @@ backend/uploads/
 
 # Lokale Infrastruktur-Doku (Hostnamen/Benutzernamen) - Repo ist oeffentlich, daher nicht einchecken
 infrastructure.local.md
+
+# Gebaute Coming-Soon-Ordner (werden mit build.sh erzeugt)
+coming-soon-sites/dist/

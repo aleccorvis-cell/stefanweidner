@@ -45,6 +45,8 @@ jobs:
               --exclude-glob .git/ \
               --exclude-glob .github/ \
               --exclude-glob .claude/ \
+              --exclude-glob docs/ \
+              --exclude-glob coming-soon-sites/ \
               --exclude-glob backend/config.php \
               --exclude-glob backend/config.production-ready.php \
               --exclude-glob backend/dev.sqlite \
