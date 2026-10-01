@@ -4,10 +4,13 @@ Quelle: Chat-Backup 29.09.2026, Text-Master 30.09.2026, Webdesigner-Hinweise, Lo
 
 ## Markenarchitektur
 - **Stefan Weidner Music** – Dachmarke, `stefanweidnermusic.com` (Portal). Zeile: *Musician · Composer · Arranger · Producer*.
-- **Stefan Weidner Live** – ausführender Musiker: Drums, Percussion, Orchesterschlagwerk, Piano, Keyboards, Musical/Konzert/Studio, Keyboard Programming. Primär **Deutsch**.
+- **Stefan Weidner Live** – ausführender Musiker: Drums, Percussion, Orchesterschlagwerk, Piano, Keyboards, Musical/Konzert/Studio, Keyboard Programming. Texte bisher Deutsch; **englische Fassung nötig** (siehe Sprachregel).
 - **Written in Sound** – „From Score to Sound“, by Stefan Weidner: Komposition, Arrangement, Orchestration, Produktion, Sounddesign. **Deutsch + Englisch** von Anfang an. Domain `writteninsoundmusic.com` → Portal.
 - Die drei Marken sind getrennte Referenzen; Written-in-Sound-Branding wird durch die anderen **nicht ersetzt**.
 - Abgrenzung: Spielender Musiker (auch bei Theaterproduktion) = Live; Soundeffekte/Gestaltung/Komposition = Written in Sound.
+
+## Sprachregel (Entscheidung 01.10.2026)
+Alle Seiten und Unterseiten – jetzt und später, auch Coming-Soon – gibt es **Deutsch und Englisch, getrennt umschaltbar** (eine Sprache pro Seite, nie beide gemischt). Umsetzung: `/de/…` und `/en/…`, Umschalter `DE · EN`, `hreflang`. Das ersetzt die frühere Annahme „Live nur Deutsch“.
 
 ## Startportal (final)
 - Hintergrund schwarz/sehr dunkel; oben zentral Header „Stefan Weidner Music“ (ohne Szenengrafik dahinter).

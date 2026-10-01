@@ -1,11 +1,9 @@
 # 05 – Offene Fragen und fehlendes Material
 
 ## Für die Coming-Soon-Seiten (heute)
-1. **Strato-Setup:** Liegen beide Domains im selben Paket? Welches Zielverzeichnis gehört zu welcher Domain? Sind SSL-Zertifikate aktiv?
-2. **Wer lädt hoch?** Manuell durch Alec (SFTP/Dateimanager) oder über den bestehenden GitHub-Deploy (dafür müsste klar sein, auf welches Paket die vorhandenen `STRATO_*`-Secrets zeigen)?
-3. **Impressum:** Anschrift, Telefon, E-Mail wie im alten Repo (Bruckstr. 24, 73066 Uhingen, private Gmail-Adresse) – oder neue Angaben/Domain-Mailadresse?
-4. **Gleiche Seite für beide Domains** oder soll writteninsoundmusic.com einen eigenen Look (z. B. nur Written in Sound) bekommen?
-5. **Freigabe durch Stefan/Kunde** der Texte „Coming soon“ / „Die neue Website ist in Kürze online.“
+1. Verzeichnis-Zuordnung der drei Domains im Strato-Paket (siehe 04-COMING-SOON.md).
+2. `writteninsoundmusic.de`: Weiterleitung auf die `.com` so gewünscht?
+3. Texte „Coming soon“ / „Die neue Website ist in Kürze online.“ / „The new website will be online shortly.“ vom Kunden freigegeben?
 
 ## Für den Gesamtprojekt-Plan
 1. Struktur: Portal + `/live` + `/written-in-sound` auf **einer** Domain (empfohlen) oder je Marke eigene Domain-Ebene?
@@ -16,6 +14,8 @@
 6. Domain-Mailadressen einrichten (z. B. info@stefanweidnermusic.com)?
 
 ## Fehlendes Material
+- **Englische Fassung der Stefan-Weidner-Live-Texte** (neue Vorgabe: alle Seiten und Unterseiten DE/EN umschaltbar; der Master ist bisher nur deutsch)
+- Impressum mit neuer Anschrift (kommt mit der echten Seite)
 - Written-in-Sound: **alle Seitentexte DE/EN**, WIS-Biografie, Referenzen/Projekte
 - Echte Fotos (Porträt, Bühne) – ersetzen Mockup-/KI-Bilder
 - Logos als **SVG** (Vektor)

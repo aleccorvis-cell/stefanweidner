@@ -1,43 +1,32 @@
 # 04 – Coming-Soon-Seiten
 
 ## Was es ist
-Eine einseitige, statische Seite im Look des freigegebenen Startportals – ohne Funktion:
-- Header „Stefan Weidner Music“ (Desktop-/Mobile-Variante),
-- Hinweis „Coming soon – Die neue Website ist in Kürze online.“,
-- darunter die beiden Kacheln **Stefan Weidner Live** und **Written in Sound** (nicht klickbar; Desktop nebeneinander, Mobile untereinander),
-- Footer mit **Impressum** und **Datenschutz** (eigene Mini-Seiten),
-- `noindex` + `robots.txt` (Seite soll bis zum Launch nicht in Suchmaschinen erscheinen),
-- keine Cookies, kein Tracking, keine externen Anfragen, Schriften lokal.
+Zwei eigenständige, einseitige statische Seiten ohne Funktion – je Domain, je **Deutsch und Englisch getrennt** (Umschalter `DE · EN` oben rechts; nie beide Sprachen auf einer Seite):
 
-Beide Domains erhalten **dieselbe Seite** – das entspricht der Vorgabe „beide Domains führen zum Portal“.
+| Domain | Look |
+|---|---|
+| `stefanweidnermusic.com` | Portal-Look: Header „Stefan Weidner Music“, „Coming soon“, darunter die Kacheln Stefan Weidner Live und Written in Sound (nicht klickbar; Desktop nebeneinander, Mobil untereinander) |
+| `writteninsoundmusic.com` | Eigenständige Written-in-Sound-Seite: Master-Kachel (Logo, Claim, Domain) + „Coming soon“. `writteninsoundmusic.de` leitet per `.htaccess` dauerhaft (301) auf die `.com` weiter |
+
+- Adressen: `/de/` und `/en/`; die Startadresse `/` leitet je nach Browser-Sprache weiter (`.htaccess`, Fallback JavaScript-Seite `index.html`).
+- `noindex` + `robots.txt` (bis zum Launch nicht in Suchmaschinen), keine Cookies, kein Tracking, keine externen Anfragen, Schriften lokal.
+- Impressum/Datenschutz bewusst **noch nicht** enthalten (kommen mit der echten Seite, neue Anschrift).
 
 ## Quellen & Build
-Ordner `coming-soon-sites/`:
-- `shared/` – Bilder (WebP, aus den freigegebenen Masterdateien), Schriften, CSS
-- `*.template.html` – Startseite, Impressum, Datenschutz
-- `build.sh` – erzeugt `dist/stefanweidnermusic.com/` und `dist/writteninsoundmusic.com/` (fertig zum Hochladen, ca. 1,3 MB je Domain)
+Ordner `coming-soon-sites/`: `shared/` (Bilder als WebP aus den freigegebenen Masterdateien, Schriften, CSS) und `build.py`.
 
 ```bash
-cd coming-soon-sites && sh build.sh
+cd coming-soon-sites && python3 build.py   # erzeugt dist/<domain>/
 ```
 
-## Upload auf Strato (manuell, einmalig)
-1. Strato-Kundenservicebereich → *Domains* → prüfen, auf welches **Zielverzeichnis** jede Domain zeigt.
-2. Per SFTP oder Strato-Dateimanager den **Inhalt** von `dist/<domain>/` in dieses Zielverzeichnis legen (inkl. `.htaccess`, nicht den Ordner selbst). Vorhandene Strato-Platzhalter-`index.html` überschreiben bzw. entfernen.
-3. Aufruf `https://stefanweidnermusic.com` und `https://writteninsoundmusic.com` (jeweils auch mit `www`) prüfen.
-4. HTTPS: In Strato SSL für beide Domains aktivieren (falls noch nicht), danach Aufruf testen.
+## Upload auf Strato (Hosting Basic, ein Paket, drei Domains)
+Domains im Paket: stefanweidnermusic.com, writteninsoundmusic.com, writteninsoundmusic.de (alle aktiviert, SSL aktiv). Webspace-Pfad `/home/www`.
 
-Zugangsdaten gibt der Repo-Owner selbst ein – sie werden nicht im Repo oder in Chats abgelegt.
+1. Strato → *Domains verwalten*: pro Domain das **Verzeichnis** ansehen bzw. festlegen. Empfehlung: `stefanweidnermusic.com` → `/stefanweidnermusic`, `writteninsoundmusic.com` **und** `.de` → `/writteninsoundmusic` (so greift die .de-Weiterleitung).
+2. Per SFTP/Webspace-Dateimanager den **Inhalt** von `dist/stefanweidnermusic.com/` bzw. `dist/writteninsoundmusic.com/` in das jeweilige Verzeichnis legen (inkl. versteckter `.htaccess`, vorhandene Strato-Platzhalter-`index.html` ersetzen).
+3. Prüfen: beide Domains (mit/ohne `www`), `/de/`, `/en/`, Umschalter, Smartphone.
 
-## Checkliste vor Freigabe
-- [ ] Desktop + Smartphone angesehen (Kacheln auf Mobile untereinander)
-- [ ] Impressum-Angaben bestätigt (Name/Anschrift/Telefon/Mail)
-- [ ] Datenschutztext akzeptiert (Entwurf, siehe Hinweis unten)
-- [ ] Texte „Coming soon / Die neue Website ist in Kürze online.“ freigegeben
-- [ ] Kunde hat Look abgenommen
+Zugangsdaten gibt der Repo-Owner selbst ein.
 
-## Rückbau beim Launch
-Inhalt des Zielverzeichnisses durch die echte Seite ersetzen (Deploy-Workflow), `noindex`/`robots.txt` entfernen, Redirects für `writteninsoundmusic.com` setzen.
-
-## Hinweis Rechtstexte
-Impressum und Datenschutz auf den Coming-Soon-Seiten sind **minimal und vorläufig** (nur Hosting-Logs, keine Cookies/Tools). Impressum-Daten stammen aus dem bisherigen Repo. Für den Echtbetrieb werden beide Texte über den eRecht24-Generator neu erstellt und von Stefan freigegeben.
+## Später
+Der Echtbetrieb ersetzt den Inhalt der Verzeichnisse (GitHub-Deploy). `noindex`/`robots.txt` entfernen, Impressum/Datenschutz ergänzen.

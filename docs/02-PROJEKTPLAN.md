@@ -24,7 +24,7 @@ Neue Gesamtpräsenz unter der Dachmarke **Stefan Weidner Music**: ein minimales 
 
 1. **Statische Seiten (HTML/CSS/JS)**, kein Framework/Build-Zwang → schnell, wartbar, läuft überall. Gemeinsames CSS-Designsystem für alle Seiten.
 2. **Struktur:** eine Codebasis, zum Beispiel
-   `/` Portal · `/live/…` Stefan Weidner Live · `/written-in-sound/de/…` und `/en/…` mit `hreflang`.
+   je Sprache getrennt: `/de/…` und `/en/…` (Umschalter, `hreflang`) mit Portal, Live und Written in Sound darunter. Gilt für alle Seiten.
    (Alternative: Live/WIS als eigene Hauptpfade je Domain – siehe offene Frage 3.)
 3. **writteninsoundmusic.com:** Weiterleitung (301) auf das Portal oder auf `/written-in-sound/` – kein Doppelinhalt.
 4. **Termine:** Datei `termine.json`; Seite filtert nach Enddatum (Archiv einklappbar). Kein Cronjob nötig. Startseite zeigt die nächsten 3–4.
